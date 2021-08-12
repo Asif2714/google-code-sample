@@ -1,13 +1,12 @@
 package com.google;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.matchesPattern;
-import static org.hamcrest.Matchers.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
-import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Part1Test extends TestBase {
 
@@ -30,13 +29,13 @@ public class Part1Test extends TestBase {
     assertEquals(6, lines.length, outputStream.toString());
     assertThat(lines[0], containsString("Here's a list of all available videos:"));
     assertThat(lines[1],
-        containsString("Amazing Cats (amazing_cats_video_id) [#cat #animal]"));
+        containsString("Amazing Cats (amazing_cats_video_id) [#cat, #animal]"));
     assertThat(lines[2],
-        containsString("Another Cat Video (another_cat_video_id) [#cat #animal]"));
+        containsString("Another Cat Video (another_cat_video_id) [#cat, #animal]"));
     assertThat(lines[3],
-        containsString("Funny Dogs (funny_dogs_video_id) [#dog #animal]"));
+        containsString("Funny Dogs (funny_dogs_video_id) [#dog, #animal]"));
     assertThat(lines[4],
-        containsString("Life at Google (life_at_google_video_id) [#google #career]"));
+        containsString("Life at Google (life_at_google_video_id) [#google, #career]"));
     assertThat(lines[5],
         containsString("Video about nothing (nothing_video_id) []"));
   }
@@ -139,7 +138,7 @@ public class Part1Test extends TestBase {
     assertEquals(2, lines.length, outputStream.toString());
     assertThat(lines[0], containsString("Playing video: Amazing Cats"));
     assertThat(lines[1],
-        containsString("Currently playing: Amazing Cats (amazing_cats_video_id) [#cat #animal]"));
+        containsString("Currently playing: Amazing Cats (amazing_cats_video_id) [#cat, #animal]"));
   }
 
   @Test
@@ -171,7 +170,7 @@ public class Part1Test extends TestBase {
     assertThat(lines[0], containsString("Playing video: Amazing Cats"));
     assertThat(lines[1], containsString("Pausing video: Amazing Cats"));
     assertThat(lines[2], containsString(
-        "Currently playing: Amazing Cats (amazing_cats_video_id) [#cat #animal] - PAUSED"));
+        "Currently playing: Amazing Cats (amazing_cats_video_id) [#cat, #animal] - PAUSED"));
   }
 
   @Test

@@ -129,7 +129,22 @@ public class VideoPlayer {
   }
 
   public void showPlaying() {
-    System.out.println("showPlaying needs implementation");
+
+    //Checking if video is playing  or not
+    if(this.videoPlayingNow == null){
+      System.out.println("No video is currently playing");
+      return;
+    }
+
+    //Print the current video playing with paused/not paused status
+    if(this.videoPaused){
+      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") "+this.videoPlayingNow.getTags() + " - PAUSED");
+    }
+    else{
+      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") "+this.videoPlayingNow.getTags());
+    }
+
+
   }
 
   public void createPlaylist(String playlistName) {
