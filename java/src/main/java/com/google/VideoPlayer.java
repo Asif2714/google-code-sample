@@ -32,9 +32,25 @@ public class VideoPlayer {
   }
 
   public void playVideo(String videoId) {
-    System.out.println("playVideo needs implementation");
-	
-	
+    //System.out.println("playVideo needs implementation");
+    Video theVideo = this.videoLibrary.getVideo(videoId);
+
+    //checking if the videoid is valid
+    if(theVideo == null){
+      System.out.println("Cannot play video: Video does not exist");
+
+      return;
+    }
+
+    //Checking if video is already playing
+    if (this.videoPlayingNow != null){
+      this.stopVideo();
+    }
+
+    //Playing the video
+    System.out.println("Playing Video: "+theVideo.getTitle());
+    this.videoPlayingNow = theVideo;
+    this.videoPaused = false;
   }
 
   public void stopVideo() {
