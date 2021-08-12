@@ -109,7 +109,23 @@ public class VideoPlayer {
   }
 
   public void continueVideo() {
-    System.out.println("continueVideo needs implementation");
+
+    //Checking if video playing
+    if(this.videoPlayingNow == null){
+      System.out.println("Cannot continue video: No video is currently playing");
+      return;
+    }
+
+    //Checking if video not paused
+    if(!this.videoPaused){
+      System.out.println("Cannot continue video: Video is not paused");
+      return;
+    }
+
+    //If all checks are successful, proceeding to pause video
+    System.out.println("Continuing video: "+this.videoPlayingNow.getTitle());
+    this.videoPaused = false;
+
   }
 
   public void showPlaying() {
