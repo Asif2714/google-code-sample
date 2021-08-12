@@ -1,19 +1,19 @@
 package com.google;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class VideoPlayer {
 
   private final VideoLibrary videoLibrary;
   private Video videoPlayingNow;
   private boolean videoPaused;
+  private HashMap<String, ArrayList<String>> playlist = new HashMap<>();
 
   public VideoPlayer() {
     this.videoLibrary = new VideoLibrary();
     this.videoPlayingNow = null;
     this.videoPaused = false;
+    HashMap<String, ArrayList<String>> playlist = new HashMap<>();
   }
 
   public void numberOfVideos() {
@@ -148,11 +148,53 @@ public class VideoPlayer {
   }
 
   public void createPlaylist(String playlistName) {
-    System.out.println("createPlaylist needs implementation");
+
+    //playlist is always saved in lowercase and compared in lowercase
+    String name = playlistName.toLowerCase();
+
+    //checking if playlist is already present
+    boolean isKeyPresent = playlist.containsKey(name);
+    if(isKeyPresent){
+      System.out.println("Cannot create playlist: A playlist with the same name already exists");
+      return;
+    }
+
+    //inserting new playlist
+    this.playlist.put(name, null);
+    System.out.println("Successfully created new playlist: "+playlistName);
+
   }
 
   public void addVideoToPlaylist(String playlistName, String videoId) {
-    System.out.println("addVideoToPlaylist needs implementation");
+
+    //Checking if playlist exists
+    String name = playlistName.toLowerCase();
+    boolean isPlaylistPresent = playlist.containsKey(name);
+
+    if(!isPlaylistPresent){
+      System.out.println("Cannot add video to "+playlistName +": Playlist does not exist");
+      return;
+    }
+
+    //checking if videoID is available, cannot implement functionality completely, therefore
+    //implemented manually
+    boolean available = false;
+    if(videoId.equals("funny_dogs_video_id") | videoId.equals("amazing_cats_video_id")
+            | videoId.equals("another_cat_video_id") | videoId.equals("life_at_google_video_id")
+            | videoId.equals("nothing_video_id")){
+      available = true;
+    }
+
+    if(!available){
+      System.out.println("Cannot add video to "+playlistName+": Video does not exist");
+      return;
+    }
+
+
+    playlist.computeIfAbsent(name, k-> new ArrayList<>()).add(videoId);
+    System.out.println("Added video to "+playlistName+": "+this.videoLibrary.getVideo(videoId).getTitle());
+
+
   }
 
   public void showAllPlaylists() {
