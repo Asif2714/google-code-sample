@@ -13,7 +13,6 @@ public class VideoPlayer {
   }
 
   public void showAllVideos() {
-    //System.out.println("showAllVideos needs implementation");
 
     System.out.println("Here's a list of all available videos:");
 
@@ -21,7 +20,7 @@ public class VideoPlayer {
     List<Video> allVideos = this.videoLibrary.getVideos();
     ArrayList<String> outputList = new ArrayList<String>();
     for(int i=0;i<allVideos.size();i++){
-      outputList.add(allVideos.get(i).getTitle()+ " ("+allVideos.get(i).getVideoId()+") ["+allVideos.get(i).getTags()+"]");
+      outputList.add(allVideos.get(i).getTitle()+ " ("+allVideos.get(i).getVideoId()+") "+allVideos.get(i).getTags());
     }
 
     //Sorting the list alphabetically and then printing them
@@ -32,7 +31,7 @@ public class VideoPlayer {
   }
 
   public void playVideo(String videoId) {
-    //System.out.println("playVideo needs implementation");
+    
     Video theVideo = this.videoLibrary.getVideo(videoId);
 
     //checking if the videoid is valid
@@ -48,13 +47,23 @@ public class VideoPlayer {
     }
 
     //Playing the video
-    System.out.println("Playing Video: "+theVideo.getTitle());
+    System.out.println("Playing video: "+theVideo.getTitle());
     this.videoPlayingNow = theVideo;
     this.videoPaused = false;
   }
 
   public void stopVideo() {
-    System.out.println("stopVideo needs implementation");
+    //Checking if currently playing video is null
+    if(this.videoPlayingNow == null){
+      System.out.println("Cannot stop video: No video is currently playing");
+      return;
+    }
+
+    //Stopping video and clearing current playing data
+    Video theVideo = this.videoPlayingNow;
+    System.out.println("Stopping video: "+theVideo.getTitle());
+    this.videoPlayingNow = null;
+    this.videoPaused = false;
   }
 
   public void playRandomVideo() {
