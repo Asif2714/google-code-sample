@@ -1,11 +1,19 @@
 package com.google;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class VideoPlayer {
 
   private final VideoLibrary videoLibrary;
+  private Video videoPlayingNow;
+  private boolean videoPaused;
 
   public VideoPlayer() {
     this.videoLibrary = new VideoLibrary();
+    this.videoPlayingNow = null;
+    this.videoPaused = false;
   }
 
   public void numberOfVideos() {
@@ -31,7 +39,7 @@ public class VideoPlayer {
   }
 
   public void playVideo(String videoId) {
-    
+
     Video theVideo = this.videoLibrary.getVideo(videoId);
 
     //checking if the videoid is valid
@@ -67,7 +75,18 @@ public class VideoPlayer {
   }
 
   public void playRandomVideo() {
-    System.out.println("playRandomVideo needs implementation");
+    List<Video> allVideos = this.videoLibrary.getVideos();
+
+    //check if library is empty
+    if (allVideos.size() ==0){
+      System.out.println("Library is empty!");
+      return;
+    }
+
+    //shuffling and playing the first video
+    Collections.shuffle(allVideos);
+    this.playVideo(allVideos.get(0).getVideoId());
+
   }
 
   public void pauseVideo() {
