@@ -13,11 +13,28 @@ public class VideoPlayer {
   }
 
   public void showAllVideos() {
-    System.out.println("showAllVideos needs implementation");
+    //System.out.println("showAllVideos needs implementation");
+
+    System.out.println("Here's a list of all available videos:");
+
+    //fetching all the videos and then storing them as output in an ArrayList
+    List<Video> allVideos = this.videoLibrary.getVideos();
+    ArrayList<String> outputList = new ArrayList<String>();
+    for(int i=0;i<allVideos.size();i++){
+      outputList.add(allVideos.get(i).getTitle()+ " ("+allVideos.get(i).getVideoId()+") ["+allVideos.get(i).getTags()+"]");
+    }
+
+    //Sorting the list alphabetically and then printing them
+    Collections.sort(outputList);
+    for (int i = 0; i< outputList.size(); i++){
+      System.out.println("\t"+outputList.get(i));
+    }
   }
 
   public void playVideo(String videoId) {
     System.out.println("playVideo needs implementation");
+	
+	
   }
 
   public void stopVideo() {
