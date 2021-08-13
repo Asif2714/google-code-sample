@@ -1,3 +1,11 @@
+
+//************************************************************************************
+// BRIGHT NETWORK TECHNOLOGY INTERNSHIP EXPERIENCE 2021 - GOOGLE CODING CHALLENGE
+// CONTRIBUTOR: ABDULLAH AL ASIF
+// DATE: 13TH AUGUST
+// PROJECT NAME: COMMAND LINE APPLICATION OF YOUTUBE
+//************************************************************************************
+
 package com.google;
 
 import java.util.*;
@@ -23,7 +31,6 @@ public class VideoPlayer {
   public void showAllVideos() {
 
     //properly getting the tags according to test case 1
-
     System.out.println("Here's a list of all available videos:");
 
     //fetching all the videos and then storing them as output in an ArrayList
@@ -31,14 +38,12 @@ public class VideoPlayer {
     ArrayList<String> outputList = new ArrayList<String>();
     for(int i=0;i<allVideos.size();i++){
 
-
       outputList.add(allVideos.get(i).getTitle()+ " ("+allVideos.get(i).getVideoId()+") "+allVideos.get(i).getTags());
 
     }
 
     //Sorting the list alphabetically and then printing them
     //fix applied to comply with original part 1 test cases
-
     Collections.sort(outputList);
     for (int i = 0; i< outputList.size(); i++){
       String outputLine = outputList.get(i);
@@ -54,7 +59,6 @@ public class VideoPlayer {
     //checking if the videoid is valid
     if(theVideo == null){
       System.out.println("Cannot play video: Video does not exist");
-
       return;
     }
 
@@ -310,7 +314,6 @@ public class VideoPlayer {
     List<Video> videoList =  videoLibrary.getVideos();
     ArrayList<String> videoNames = new ArrayList<String>();
 
-
     HashMap<Integer, String> resultHashMap = new HashMap<Integer, String>();
     ArrayList<String> resultID = new ArrayList<>();
 
@@ -354,6 +357,7 @@ public class VideoPlayer {
       }
     }
 
+    //Sorting and printing out the list
     System.out.println("Here are the results for "+searchTerm+":");
 
     ArrayList<String> results = new ArrayList<>();
@@ -387,7 +391,7 @@ public class VideoPlayer {
   }
 
   public void searchVideosWithTag(String videoTag) {
-    //videoTag = videoTag.toLowerCase();
+
     List <Video> videoList = videoLibrary.getVideos();
 
     HashMap<Integer, String> resultHashMap = new HashMap<Integer, String>();
@@ -430,6 +434,8 @@ public class VideoPlayer {
         numbering++;
       }
       }
+
+    //Printing the available videos and prompt for selection
     System.out.println("Here are the results for "+videoTag+":");
 
     ArrayList<String> results = new ArrayList<>();
@@ -461,6 +467,8 @@ public class VideoPlayer {
 
   }
 
+
+//  Problems below are not attempted because of complexity, but will be attempted later
   public void flagVideo(String videoId) {
     System.out.println("flagVideo needs implementation");
   }
