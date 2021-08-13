@@ -1,9 +1,6 @@
 package com.google;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class VideoPlayer {
 
@@ -308,7 +305,85 @@ public class VideoPlayer {
   }
 
   public void searchVideos(String searchTerm) {
-    System.out.println("searchVideos needs implementation");
+
+    searchTerm = searchTerm.toLowerCase();
+    List<Video> videoList =  videoLibrary.getVideos();
+    ArrayList<String> videoNames = new ArrayList<String>();
+
+
+    HashMap<Integer, String> resultHashMap = new HashMap<Integer, String>();
+    ArrayList<String> resultID = new ArrayList<>();
+
+    Integer numbering = 0;
+
+    //Checking if valid
+    boolean valid = false;
+
+    for (int i = 0; i< videoList.size(); i++){
+      if(videoList.get(i).getTitle().toLowerCase().contains(searchTerm)){
+        valid = true;
+      }
+    }
+
+    if(!valid){
+      System.out.println("No search results for "+searchTerm);
+      return;
+    }
+
+
+
+    //Main verification routine
+    for(int i = 0; i<videoList.size();i++){
+      if(videoList.get(i).getTitle().toLowerCase().contains(searchTerm)){
+        //removing the comma from tags, test case 1 error
+        List list = videoList.get(i).getTags();
+        String tags = "";
+        for(int j = 0; j< list.size(); j++){
+          tags += list.get(j);
+          if(j <= list.size()-2){
+            tags += " ";
+          }
+        }
+
+
+        String result = videoList.get(i).getTitle() + " ("+videoList.get(i).getVideoId()+ ") ["+tags+"]";
+        resultHashMap.put(numbering, result);
+        resultID.add(videoList.get(i).getVideoId());
+        numbering++;
+
+      }
+    }
+
+    System.out.println("Here are the results for "+searchTerm+":");
+
+    ArrayList<String> results = new ArrayList<>();
+    for (int i = 0; i< resultHashMap.size(); i++){
+      results.add(resultHashMap.get(i));
+    }
+    Collections.sort(results);
+
+    for(int i = 0; i < resultHashMap.size(); i++){
+      System.out.println((i+1)+") "+results.get(i));
+    }
+    System.out.println("Would you like to play any of the above? If yes, specify the number of the video.");
+    System.out.println("If your answer is not a valid number, we will assume it's a no.");
+
+    Scanner scanner = new Scanner(System.in);
+    String reply = scanner.nextLine();
+
+    int replyInt;
+
+    try{
+      replyInt = Integer.parseInt(reply);
+    }
+    catch (NumberFormatException e){
+      return;
+    }
+    Collections.sort(resultID);
+
+    playVideo(resultID.get(replyInt-1));
+
+
   }
 
   public void searchVideosWithTag(String videoTag) {
