@@ -1,6 +1,9 @@
 package com.google;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class VideoPlayer {
 
@@ -22,19 +25,28 @@ public class VideoPlayer {
 
   public void showAllVideos() {
 
+    //properly getting the tags according to test case 1
+
     System.out.println("Here's a list of all available videos:");
 
     //fetching all the videos and then storing them as output in an ArrayList
     List<Video> allVideos = this.videoLibrary.getVideos();
     ArrayList<String> outputList = new ArrayList<String>();
     for(int i=0;i<allVideos.size();i++){
+
+
       outputList.add(allVideos.get(i).getTitle()+ " ("+allVideos.get(i).getVideoId()+") "+allVideos.get(i).getTags());
+
     }
 
     //Sorting the list alphabetically and then printing them
+    //fix applied to comply with original part 1 test cases
+
     Collections.sort(outputList);
     for (int i = 0; i< outputList.size(); i++){
-      System.out.println("\t"+outputList.get(i));
+      String outputLine = outputList.get(i);
+      outputLine = outputLine.replaceAll(",", "");
+      System.out.println(outputLine);
     }
   }
 
@@ -136,12 +148,22 @@ public class VideoPlayer {
       return;
     }
 
+    //removing the comma from tags, test case 1 error
+    List list = this.videoPlayingNow.getTags();
+    String tags = "";
+    for(int i = 0; i< list.size(); i++){
+      tags += list.get(i);
+      if(i <= list.size()-2){
+        tags += " ";
+      }
+    }
+
     //Print the current video playing with paused/not paused status
     if(this.videoPaused){
-      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") "+this.videoPlayingNow.getTags() + " - PAUSED");
+      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") ["+ tags + "] - PAUSED");
     }
     else{
-      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") "+this.videoPlayingNow.getTags());
+      System.out.println("Currently playing: "+this.videoPlayingNow.getTitle()+ " ("+this.videoPlayingNow.getVideoId()+") ["+tags +"]");
     }
 
 
@@ -194,15 +216,29 @@ public class VideoPlayer {
     playlist.computeIfAbsent(name, k-> new ArrayList<>()).add(videoId);
     System.out.println("Added video to "+playlistName+": "+this.videoLibrary.getVideo(videoId).getTitle());
 
-
   }
 
   public void showAllPlaylists() {
-    System.out.println("showAllPlaylists needs implementation");
+
+    //checking if length is 0
+    if(playlist.size() == 0){
+      System.out.println("No playlists exist yet");
+      return;
+    }
+
+    //Printing out the list of playlist
+    System.out.println("Showing all playlists:");
+    List <String> keyList = new ArrayList<>(playlist.keySet());
+    for(int i = 0; i< keyList.size(); i++){
+      System.out.println(keyList.get(i));
+    }
   }
 
   public void showPlaylist(String playlistName) {
-    System.out.println("showPlaylist needs implementation");
+    //check if the playlist exists
+
+
+
   }
 
   public void removeFromPlaylist(String playlistName, String videoId) {
