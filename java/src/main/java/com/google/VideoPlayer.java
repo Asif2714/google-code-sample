@@ -235,22 +235,76 @@ public class VideoPlayer {
   }
 
   public void showPlaylist(String playlistName) {
+//    Partially implemented
     //check if the playlist exists
+    boolean isPlaylistPresent = playlist.containsKey(playlistName);
+    if (!isPlaylistPresent){
+      System.out.println("Cannot show playlist "+playlistName+": Playlist does not exist");
+      return;
+    }
+
+    //Implementation error, to be fixed later
+    //
+    System.out.println("Showing playlist: "+playlistName);
+    if(playlist.get(playlistName).size() == 0){
+      System.out.println("No videos here yet");
+      return;
+    }
+
+    for(int i = 0; i<playlist.get(playlistName).size(); i++){
+      System.out.println(playlist.get(playlistName).get(i));
+    }
 
 
 
   }
 
   public void removeFromPlaylist(String playlistName, String videoId) {
-    System.out.println("removeFromPlaylist needs implementation");
+    //PARTIALLY implemented
+    //check if the playlist exists
+    boolean isPlaylistPresent = playlist.containsKey(playlistName);
+    if (!isPlaylistPresent){
+      System.out.println("Cannot remove video from "+playlistName+": Playlist does not exist");
+      return;
+    }
+
+    if(!playlist.get(playlistName).contains(videoId)){
+      System.out.println("Cannot remove video from "+playlistName+": Video does not exist");
+      return;
+    }
+
+    playlist.get(playlistName).remove(videoId);
+    System.out.println("Removed video from "+playlistName+": "+videoId);
+
   }
 
   public void clearPlaylist(String playlistName) {
-    System.out.println("clearPlaylist needs implementation");
+    //check if the playlist exists
+    boolean isPlaylistPresent = playlist.containsKey(playlistName);
+    if (!isPlaylistPresent){
+      System.out.println("Cannot clear playlist "+playlistName+": Playlist does not exist");
+      return;
+    }
+
+    //Clearing the arraylist for playlists
+    playlist.get(playlistName).clear();
+    System.out.println("Successfully removed all videos from "+playlistName);
   }
 
   public void deletePlaylist(String playlistName) {
-    System.out.println("deletePlaylist needs implementation");
+    //check if the playlist exists
+    String name = playlistName.toLowerCase();
+    boolean isPlaylistPresent = playlist.containsKey(name);
+    if (!isPlaylistPresent){
+      System.out.println("Cannot delete playlist "+playlistName+": Playlist does not exist");
+      return;
+    }
+
+
+    // Removing playlist from hashmap playlist
+    playlist.remove(name);
+    System.out.println("Deleted playlist: "+playlistName);
+
   }
 
   public void searchVideos(String searchTerm) {
